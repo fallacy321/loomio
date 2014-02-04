@@ -16,6 +16,15 @@ $ ->
           $.getJSON autocomplete_path, {q: query} , (data) ->
             callback(data)
 
+# Show translation div
+$ ->
+<<<<<<< HEAD
+  $('.activity-item-container').on 'click', '.translate-comment', (event) ->
+=======
+  $('.translate-comment').click (event) ->
+>>>>>>> 60a49ac... Add Bing translation option to discussion comments
+    $(this).slideUp().closest('.activity-item-body').find('.activity-item-translation').slideDown()
+
 # Global Markdown (new discussion & comments)
 $ ->
   $(".global-markdown-setting .enable-markdown").click (event) ->

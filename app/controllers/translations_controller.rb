@@ -3,13 +3,14 @@ class TranslationsController < BaseController
   before_filter :load_translation, only: :translate
   
   def translate  
-    render :template => "#{params[:model].to_s.downcase.pluralize}/#{params[:model].to_s.downcase}_translations"
+    model = params[:model].to_s.downcase
+    render :template => "#{model.pluralize}/#{model}_translations"
   end
   
+  private
+  
   def load_translation
-    model = params[:model].to_s.humanize.constantize
-    instance = if model == Discussion then model.published.find_by_key! params[:id]
-               else                        model.find(params[:id]) end
+    instance = Translatable.get_instance params[:model], params[:id]
     @translation = instance.translate if instance.present?
   end
 

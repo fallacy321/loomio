@@ -17,9 +17,11 @@ class Translation < ActiveRecord::Base
                             'Irish (Ireland)' => 'ga'}
 
   belongs_to :translatable, polymorphic: true
-  scope :to_language, ->(lang) { where(language: lang) }
+  
+  scope :to_language, ->(language) { where(language: language) }
 
   validates_presence_of :translatable, :translatable_field, :language
+  
   before_save :null_translation_if_invalid
   
   def null_translation_if_invalid

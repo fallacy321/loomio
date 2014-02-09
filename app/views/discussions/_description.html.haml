@@ -6,7 +6,7 @@
       = t(:loading)
     - if can? :update_description, discussion
       = link_to t(:edit_discussion_context), "#", class: "edit-description edit-discussion-description bottom-panel-link", id: 'edit_description'
-    - if can_translate? discussion
+    - if show_translation_links? discussion
       = translate_link :discussion, discussion.key
   - if can? :update_description, discussion
     = form_tag update_description_discussion_path(discussion), :id => "description-edit-form", :class => "hidden" do |f|

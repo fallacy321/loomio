@@ -16,7 +16,7 @@
         = t(:proposed_when_by_who, when: time_ago_in_words(motion.created_at), who: motion.author_name)
     .span2.motion-admin-buttons
       = render '/motions/admin_buttons', motion: motion unless motion.closed?
-      - if can_translate? motion
+      - if show_translation_links? motion
         = translate_link :motion, motion.id, 'btn btn-small'
   .row
     .span5

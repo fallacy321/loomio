@@ -54,7 +54,7 @@ class Vote < ActiveRecord::Base
   end
 
   def self.translatable_fields
-    [:position]
+    [:statement]
   end
 
   def self.unique_votes(motion)

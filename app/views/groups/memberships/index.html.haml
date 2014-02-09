@@ -15,7 +15,8 @@
   %thead
     %th= t :photo
     %th= t :name
-    %th= t :"common.email"
+    -if can? :update, @group
+      %th= t :"common.email"
     -if can? :update, @group
       %th= t :coordinator
       %th= t :remove
@@ -23,11 +24,12 @@
     -@memberships.each do |membership|
       -user = membership.user
       %tr{id: "membership-for-user-#{user.id}"}
-        %td=render 'avatar', user: user
+        %td=render 'linked_avatar', user: user
         %td
           %div= link_to user.name, user_path(user)
           %div.access-level="Coordinator" if membership.admin?
-        %td=user.email
+        -if can? :update, @group
+          %td=user.email
         %td
           -if can? :update, @group
             - if membership.admin?
@@ -49,16 +51,17 @@
                 :confirm => t(:confirm_remove_member)
 
 - unless @group.pending_invitations.count == 0
-  %h1=  t :pending_invitations
-  %table.pending-invitations.table.table-striped
-    %thead
-      %th= t "common.email"
-      %th= t "invitation.invitation_link"
-    %tbody
-      - @group.pending_invitations.each do |invitation|
-        %tr
-          %td= invitation.recipient_email
-          %td= invitation_url(invitation)
-          %td= link_to(t(:cancel), group_invitation_path(@group, invitation), method: :delete, class: 'btn')
+  - if can?(:add_members, @group)
+    %h1=  t :pending_invitations
+    %table.pending-invitations.table.table-striped
+      %thead
+        %th= t "common.email"
+        %th= t "invitation.invitation_link"
+      %tbody
+        - @group.pending_invitations.each do |invitation|
+          %tr
+            %td= invitation.recipient_email
+            %td= invitation_url(invitation)
+            %td= link_to(t(:cancel), group_invitation_path(@group, invitation), method: :delete, class: 'btn')
 
-  %p= t "invitation.copy"
+    %p= t "invitation.copy"

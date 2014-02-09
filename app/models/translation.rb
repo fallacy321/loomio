@@ -13,7 +13,8 @@ class Translation < ActiveRecord::Base
                "română" => "ro",
                "Tiếng Việt" => "vi"}
   EXPERIMENTAL_LANGUAGES = {"Italiano" => "it",
-                            "čeština" => "cs"}
+                            "čeština" => "cs",
+                            'Irish (Ireland)' => 'ga'}
 
   belongs_to :translatable, polymorphic: true
   scope :to_language, ->(lang) { where(language: lang) }

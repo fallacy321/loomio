@@ -1,4 +1,6 @@
 class Vote < ActiveRecord::Base
+  include Translatable
+
   class UserCanVoteValidator < ActiveModel::EachValidator
     def validate_each(object, attribute, value)
       unless value && object.motion.can_be_voted_on_by?(User.find(value))
@@ -19,6 +21,7 @@ class Vote < ActiveRecord::Base
 
   belongs_to :motion, counter_cache: true
   belongs_to :user
+  alias :author :user
   has_many :events, :as => :eventable, :dependent => :destroy
 
   validates_presence_of :motion, :user, :position
@@ -48,6 +51,10 @@ class Vote < ActiveRecord::Base
 
   def can_be_edited_by?(current_user)
     current_user && user == current_user
+  end
+
+  def self.translatable_fields
+    [:position]
   end
 
   def self.unique_votes(motion)

@@ -79,6 +79,10 @@ class Comment < ActiveRecord::Base
       liker_ids_and_names.keys.include?(user.id)
     end
   end
+  
+  def self.translatable_fields
+    [:body]
+  end
 
   private
     def set_defaults

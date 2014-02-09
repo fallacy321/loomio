@@ -1,4 +1,5 @@
 class Motion < ActiveRecord::Base
+  include Translatable
   CHART_COLOURS = ["#90D490", "#F0BB67", "#D49090", "#dd0000", '#ccc']
 
   include ReadableUnguessableUrls
@@ -214,7 +215,11 @@ class Motion < ActiveRecord::Base
     update_attribute(:did_not_votes_count, did_not_votes.count)
     reload
   end
-
+  
+  def self.translatable_fields
+    [:name, :description]
+  end
+  
   private
     def find_or_new_motion_reader_for(user)
       if self.motion_readers.where(user_id: user.id).exists?

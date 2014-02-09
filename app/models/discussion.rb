@@ -1,4 +1,5 @@
 class Discussion < ActiveRecord::Base
+  include Translatable
   PER_PAGE = 50
   paginates_per PER_PAGE
 
@@ -179,6 +180,9 @@ class Discussion < ActiveRecord::Base
     ['hidden', 'private'].include? group.privacy
   end
 
+  def self.translatable_fields
+    [:title, :description]
+  end
 
   private
   def private_is_not_nil

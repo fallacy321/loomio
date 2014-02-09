@@ -1,4 +1,4 @@
-class Translation
+class Translation < ActiveRecord::Base
   LANGUAGES = {"English" => "en",
                "български" => "bg",
                "Català" => "ca",
@@ -15,6 +15,20 @@ class Translation
   EXPERIMENTAL_LANGUAGES = {"Italiano" => "it",
                             "čeština" => "cs"}
 
+  belongs_to :translatable, polymorphic: true
+  scope :to_language, ->(lang) { where(language: lang) }
+
+  validates_presence_of :translatable, :translatable_field, :language
+  before_save :null_translation_if_invalid
+  
+  def null_translation_if_invalid
+    self.translation = nil if self.translation == self.translatable.send(self.translatable_field) || self.translation.blank?
+  end
+  
+  def as_json
+    { "#{translatable_field}" => "#{translation}", id: translatable_id }
+  end
+  
   def self.language(locale)
     LANGUAGES.key(locale)
   end
@@ -32,4 +46,5 @@ class Translation
       title: "#{I18n.t(:change_language, language: language[0])}",
       text: "#{language[0]}" }
   end
+  
 end

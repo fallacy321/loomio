@@ -4,6 +4,7 @@ class EmailPreferences
 
   delegate :to_key,
            :to_param,
+           :subscribed_to_news,
            :subscribed_to_daily_activity_email,
            :subscribed_to_proposal_closure_notifications,
            :subscribed_to_mention_notifications, :to => :user

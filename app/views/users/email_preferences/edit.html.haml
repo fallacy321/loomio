@@ -2,9 +2,12 @@
   .span12
     %h1= t("email_preferences_form.header")
     =simple_form_for(@email_preferences, :url => update_email_preferences_path, :method => :put) do |f|
-      %h2= t("email_preferences_form.daily_activity_summary")
       -if params[:unsubscribe_token]
         =hidden_field_tag :unsubscribe_token, params[:unsubscribe_token]
+      
+      %h2= t("email_preferences_form.loomio_newsletter")
+      =f.input :subscribed_to_news, :as => :boolean, :inline_label => t(:"devise.registrations.newsletter_message"), :label => false
+      %h2= t("email_preferences_form.daily_activity_summary")
       =f.input :subscribed_to_daily_activity_email, :as => :boolean, :inline_label => t("email_preferences_form.daily_activity_subscription"), :label => false
 
       -#=f.input :subscribed_to_mention_notifications, label: 'When someone mentions your name'

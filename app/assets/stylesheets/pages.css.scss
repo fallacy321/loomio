@@ -432,6 +432,12 @@ body.pages.terms_of_service {
     label {
       margin-bottom: .6em;
     }
+    
+    label[for*=user_subscribed_to_news] {
+      float: right;
+      font-size: 1em;
+      padding-left: 5px;
+    }
 
     h1 {
       font-size: 30px;

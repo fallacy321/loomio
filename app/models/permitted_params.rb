@@ -13,7 +13,8 @@ class PermittedParams < Struct.new(:params, :user)
     [{:group_email_preferences => []},
      :subscribed_to_daily_activity_email,
      :subscribed_to_proposal_closure_notifications,
-     :subscribed_to_mention_notifications]
+     :subscribed_to_mention_notifications,
+     :subscribed_to_news]
   end
 
   def user_attributes

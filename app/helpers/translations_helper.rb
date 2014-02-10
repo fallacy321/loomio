@@ -10,9 +10,13 @@ module TranslationsHelper
   
   def get_translation(translation, field, show_error = true)
     field = field.to_s
-    message = if valid_translation? translation, field then translation[field]
-              elsif show_error                         then t(:failed_translation)
-              else                                          '' end
+    message = if valid_translation? translation, field 
+                translation[field]
+              elsif show_error                         
+                t(:failed_translation)
+              else                                          
+                '' 
+              end
     escape_javascript(message).html_safe
   end
   

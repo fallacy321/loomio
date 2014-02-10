@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   include Twitter::Extractor
-  include Translatable
 
   has_paper_trail
+  has_translations :body
 
   belongs_to :discussion, counter_cache: true
   belongs_to :user
@@ -78,10 +78,6 @@ class Comment < ActiveRecord::Base
     if liker_ids_and_names.respond_to? :keys
       liker_ids_and_names.keys.include?(user.id)
     end
-  end
-  
-  def self.translatable_fields
-    [:body]
   end
 
   private

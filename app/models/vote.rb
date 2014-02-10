@@ -1,5 +1,4 @@
 class Vote < ActiveRecord::Base
-  include Translatable
 
   class UserCanVoteValidator < ActiveModel::EachValidator
     def validate_each(object, attribute, value)
@@ -30,6 +29,8 @@ class Vote < ActiveRecord::Base
   validates :user_id, user_can_vote: true
   validates :position, :statement, closable: true
 
+  has_translations :statement
+
   scope :for_user, lambda {|user| where(:user_id => user)}
 
   delegate :name, :to => :user, :prefix => :user
@@ -51,10 +52,6 @@ class Vote < ActiveRecord::Base
 
   def can_be_edited_by?(current_user)
     current_user && user == current_user
-  end
-
-  def self.translatable_fields
-    [:statement]
   end
 
   def self.unique_votes(motion)

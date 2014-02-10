@@ -1,5 +1,4 @@
 class Motion < ActiveRecord::Base
-  include Translatable
   CHART_COLOURS = ["#90D490", "#F0BB67", "#D49090", "#dd0000", '#ccc']
 
   include ReadableUnguessableUrls
@@ -16,6 +15,8 @@ class Motion < ActiveRecord::Base
 
   validates_length_of :name, :maximum => 250
   validates_length_of :outcome, :maximum => 250
+
+  has_translations [:name, :description]
 
   include PgSearch
   pg_search_scope :search, against: [:name, :description],
@@ -214,10 +215,6 @@ class Motion < ActiveRecord::Base
     end
     update_attribute(:did_not_votes_count, did_not_votes.count)
     reload
-  end
-  
-  def self.translatable_fields
-    [:name, :description]
   end
   
   private

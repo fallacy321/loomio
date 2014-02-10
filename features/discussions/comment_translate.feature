@@ -34,8 +34,8 @@ Feature: Translate a comment into a different language
     And the comment is written by an English speaker
     And the translator can translate
     When I visit the discussion page
- 	  And I click on the translate link
-  	And I wait 3 seconds
+ 	And I click on the translate link
+  	And I wait 5 seconds
   	Then the translation should appear 
   
   @javascript
@@ -48,6 +48,6 @@ Feature: Translate a comment into a different language
     And the comment is written by an English speaker
     And the translator cannot translate
     When I visit the discussion page
- 	  And I click on the translate link
-  	And I wait 3 seconds
+ 	And I click on the translate link
+  	And I wait 5 seconds
   	Then a failure to translate message should appear   

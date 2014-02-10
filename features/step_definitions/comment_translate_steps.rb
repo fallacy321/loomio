@@ -1,9 +1,9 @@
 Given /^the translator can translate$/ do 
-  Comment.any_instance.stub(:translate).and_return('successful translation')
+  Comment.any_instance.stub(:translate).and_return({ id: 1, 'body' => 'successful translation' })
 end
 
 Given /^the translator cannot translate$/ do
-  Comment.any_instance.stub(:can_translate?).and_return(false)
+  Comment.any_instance.stub(:translate).and_return({ id: 1, 'body' => nil })
 end
 
 When /^I click on the translate link$/ do

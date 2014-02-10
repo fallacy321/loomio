@@ -5,4 +5,7 @@ namespace :loomio do
   task :generate_error => :environment do
     raise "Testing error reporting for rake tasks, chill, no action requied if you see this"
   end
+  task :mailchimp_export => :environement do
+    MailChimp.export_newsletter_users
+  end
 end

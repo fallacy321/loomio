@@ -100,6 +100,7 @@ class User < ActiveRecord::Base
   scope :active, where(:deleted_at => nil)
   scope :inactive, where("deleted_at IS NOT NULL")
   scope :daily_activity_email_recipients, where(:subscribed_to_daily_activity_email => true)
+  scope :newsletter_recipients, where(:subscribed_to_news => true)
   scope :sorted_by_name, order("lower(name)")
   scope :admins, where(is_admin: true)
   scope :coordinators, joins(:memberships).where('memberships.access_level = ?', 'admin').group('users.id')

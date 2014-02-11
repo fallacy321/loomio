@@ -2,6 +2,7 @@ class Translation < ActiveRecord::Base
   LANGUAGES = {"English" => "en",
                "български" => "bg",
                "Català" => "ca",
+               "čeština" => "cs",
                "Deutsch" => "de",
                "Español" => "es",
                "ελληνικά" => "el",
@@ -12,9 +13,11 @@ class Translation < ActiveRecord::Base
                "Português (Brasil)" => "pt",
                "română" => "ro",
                "Tiếng Việt" => "vi"}
+
   EXPERIMENTAL_LANGUAGES = {"Italiano" => "it",
-                            "čeština" => "cs",
-                            'Irish (Ireland)' => 'ga'}
+                            "മലയാളം" => "ml",
+                                                        "తెలుగు" => "te",
+              "Gaelic (Irish)" => "ga"}
 
   belongs_to :translatable, polymorphic: true
   

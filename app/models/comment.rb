@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
   include Twitter::Extractor
 
   has_paper_trail
-  has_translations :body
+  has_translations :body, language_field: :primary_language, delegate: :author
 
   belongs_to :discussion, counter_cache: true
   belongs_to :user

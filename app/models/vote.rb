@@ -20,7 +20,7 @@ class Vote < ActiveRecord::Base
 
   belongs_to :motion, counter_cache: true
   belongs_to :user
-  alias :author :user
+
   has_many :events, :as => :eventable, :dependent => :destroy
 
   validates_presence_of :motion, :user, :position
@@ -29,7 +29,7 @@ class Vote < ActiveRecord::Base
   validates :user_id, user_can_vote: true
   validates :position, :statement, closable: true
 
-  has_translations :statement
+  has_translations :statement, language_field: :primary_language, delegate: :user
 
   scope :for_user, lambda {|user| where(:user_id => user)}
 

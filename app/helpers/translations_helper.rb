@@ -1,7 +1,7 @@
 module TranslationsHelper
   
   def show_translation_links?(model)
-    model.author.primary_language != I18n.locale.to_s
+    model.language != I18n.locale.to_s
   end
   
   def translate_link(model, id, css='')

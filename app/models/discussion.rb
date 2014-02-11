@@ -18,7 +18,7 @@ class Discussion < ActiveRecord::Base
   validates_inclusion_of :uses_markdown, :in => [true,false]
   validate :privacy_is_permitted_by_group
 
-  has_translations [:title, :description], load_via: :find_by_key!
+  has_translations [:title, :description], load_via: :find_by_key!, language_field: :primary_language, delegate: :author
   has_paper_trail :only => [:title, :description]
 
   belongs_to :group, :counter_cache => true

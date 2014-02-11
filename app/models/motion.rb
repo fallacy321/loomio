@@ -16,7 +16,7 @@ class Motion < ActiveRecord::Base
   validates_length_of :name, :maximum => 250
   validates_length_of :outcome, :maximum => 250
 
-  has_translations [:name, :description]
+  has_translations [:name, :description], language_field: :primary_language, delegate: :author
 
   include PgSearch
   pg_search_scope :search, against: [:name, :description],

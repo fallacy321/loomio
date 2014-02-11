@@ -12,11 +12,15 @@ module Translatable
         send :include, InstanceMethods
         send :before_update, :clear_translations
         send :has_many, :translations, as: :translatable
+        
+        delegate options[:language_field] || :language, to: options[:delegate] if options[:delegate]
+        alias_method :language, options[:language_field]                       if options[:language_field]
+              
       end
     end
     
     module InstanceMethods
-      def translate(from_lang = author.primary_language, to_lang = I18n.locale.to_s)
+      def translate(from_lang = language, to_lang = I18n.locale.to_s)
         return {} if translator.nil? || to_lang.blank? || from_lang.blank? || from_lang == to_lang
         current_translations = self.translations.to_language(to_lang)
         
@@ -47,12 +51,9 @@ module Translatable
       private
       
       def translator
-        @translator ||= BingTranslator.new get_env_or_fake('BING_TRANSLATE_APPID'), get_env_or_fake('BING_TRANSLATE_SECRET') rescue nil
+        @translator ||= BingTranslator.new ENV.fetch('BING_TRANSLATE_APPID'), ENV.fetch('BING_TRANSLATE_SECRET') rescue nil
       end
     
-      def get_env_or_fake(key)
-        ENV[key] || ''
-      end
     end
   end
 end
